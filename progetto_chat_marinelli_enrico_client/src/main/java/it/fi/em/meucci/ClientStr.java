@@ -17,9 +17,10 @@ public class ClientStr {
 
 
     public Socket connetti(){
-        System.out.println("2 CLIENT partit in esecuzione... ");
+        
 
         try{
+            System.out.println("CLIENT partito in esecuzione... ");
             tastiera = new BufferedReader(new InputStreamReader(System.in));
 
             miosocket = new Socket(nomeServer, portaServer);
@@ -40,19 +41,21 @@ public class ClientStr {
     }
 
     public void comunica(){
+        for(;;)
         try{
-            System.out.println("4 ... inserisci la strnga da trasmettere al server: " + '\n');
+            System.out.println("Inserisci la strnga da trasmettere al server: " + '\n');
             stringaUtente = tastiera.readLine();
 
-            System.out.println("5 ... invio la stringa al servr e attendo ...");
+            System.out.println("Invio la stringa al servr e attendo ...");
             outVersoServer.writeBytes(stringaUtente + '\n');
 
             stringaRicevutaDalServer = inDalServer.readLine();
-            System.out.println("8 ...  risposta dal server" + '\n' + stringaRicevutaDalServer);
-
-            System.out.println("9 CLIENT: termina elaborazione e chiude connessione");
-            miosocket.close();
-
+            System.out.println("Risposta dal server" + '\n' + stringaRicevutaDalServer);
+            if(stringaUtente.equals("FINE")){
+                System.out.println("CLIENT: termina elaborazione e chiude connessione");
+                miosocket.close();
+                break;
+            }
         }catch(Exception e){
             System.out.println(e.getMessage());
             System.out.println("Errore durante la comunicazione col server");

@@ -1,5 +1,4 @@
 package it.fi.em;
-
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -12,16 +11,29 @@ public class ServerStr {
     BufferedReader inDalClient;
     DataOutputStream outVersoClient;
 
+
+    public ServerStr(){
+        try{
+            server = new ServerSocket(6789);
+            System.out.println("Server inizio esecuzione");
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
    public Socket attendi(){
        try
        {
            System.out.println("1 SERVER partito in esecuzione....");
 
-           server = new ServerSocket(6789);
+           
 
            client = server.accept();
 
-           server.close();
+          // server.close();
 
            inDalClient = new BufferedReader(new InputStreamReader(client.getInputStream()));
            outVersoClient = new DataOutputStream((client.getOutputStream()));
